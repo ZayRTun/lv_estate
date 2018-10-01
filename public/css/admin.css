@@ -1,0 +1,23 @@
+body {
+    padding-top: 50px;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+/*-------form----------*/
+.content-container {
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+
+.custom-inline .inline {
+    width: 49%;
+    padding: 0;
+}
+
+.custom-inline {
+    display: flex;
+    justify-content: space-between;
+}
