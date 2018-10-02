@@ -12,13 +12,6 @@ class PropertyController extends Controller
         return view('posts.index');
     }
 
-    public function adminIndex()
-    {
-        $properties = Property::all();
-
-        return view('admin.index', compact('properties'));
-    }
-
     public function store()
     {
 //        dd(request());

@@ -24,7 +24,7 @@ class CreatePropertiesTable extends Migration
             $table->string('bed_room');
             $table->string('bath_room');
             $table->string('air_conditioning');
-            $table->tinyInteger('condition');
+            $table->string('condition');
             $table->integer('width');
             $table->integer('length');
             $table->string('floor');

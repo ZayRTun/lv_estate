@@ -26,10 +26,17 @@
                         <tbody>
                             @foreach($properties as $property)
                                 <tr>
-                                    <td>{{ $property->first_name . ' ' . $property->last_name }}</td>
+                                    <td>{{ $property->full_name }}</td>
                                     <td>{{ $property->contact }}</td>
                                     <td>{{ $property->property_type }}</td>
                                     <td>{{ $property->property_for }}</td>
+                                    <td>{{ $property->prop_area }}</td>
+                                    <td>{{ $property->township }}</td>
+                                    <td>{{ $property->state }}</td>
+                                    <td>{{ $property->price }}</td>
+                                    <td><a href="/admin/{{ $property->id }}">View</a></td>
+                                    <td><a href="/admin/{{ $property->id }}/edit">Edit</a></td>
+                                    <td><a href="/admin/{{ $property->id }}/delete">Delete</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

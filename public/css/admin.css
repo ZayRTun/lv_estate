@@ -21,3 +21,14 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+/*--Details Page--*/
+
+.detail-section {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.sec-1, .sec-2 {
+    width: 49%;
+}

@@ -11,10 +11,22 @@
 |
 */
 
+// Property Controllers
 Route::get('/', 'PropertyController@index');
-Route::get('/admin/index', 'PropertyController@adminIndex');
-Route::get('/admin/create', function() {
-   return view('admin.create');
-});
 
-Route::post('/property/create', 'PropertyController@store');
+// Admin Controllers
+Route::get('/admin', 'AdminController@index');
+
+Route::get('/admin/create', 'AdminController@create');
+
+Route::post('/admin', 'AdminController@store');
+
+Route::get('/admin/{property}', 'AdminController@show');
+
+Route::get('/admin/{property}/edit', 'AdminController@edit');
+
+Route::patch('/admin/{id}', 'AdminController@update');
+
+Route::get('/admin/{property}/delete', 'AdminController@delete');
+
+Route::delete('/admin/{id}', 'AdminController@destroy');
