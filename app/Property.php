@@ -14,6 +14,11 @@ class Property extends Model
     public $prop_type = ['Condominium', 'Mini-Condominium', 'Apartment', 'Flat', 'Bungalow', 'Land'];
     public $township_names = ['Ahlon', 'Bahan', 'Dagon', 'Kyauktada', 'Kyimyindaing', 'Lanmadaw', 'Latha', 'Pabedan', 'Sanchaung', 'Dagon Seikkan', 'East Dagon', 'North Dagon', 'North Okkalapa', 'South Dagon', 'South Okkalapa', 'Thingangyun', 'Dala', 'Dawbon', 'Botataung', 'Mingala Taungnyunt', 'Seikkyi Kanaungto', 'Tamwe', 'Pazundaung', 'Thaketa', 'Yankin', 'Insein', 'Hlaing', 'Hlaingthaya', 'Kamayut', 'Mayangon', 'Mingaladon', 'Shwepyitha'];
 
+	public function images()
+	{
+		return $this->hasMany('App\Image');
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";

@@ -3,10 +3,19 @@
 @section('content')
     <div class="container main">
         <div class="row">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <section class="col-xs-12">
                 {{--<a href="/realestate/public/staff/index.php">&laquo; Back to List</a>--}}
 
-                <form action="/admin" method="post" {{--enctype="multipart/form-data"--}}>
+                <form action="/admin" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="col-sm-6">
@@ -27,9 +36,9 @@
                                 <div class="form-group">
                                     <label  for="propertyFor">Property For</label>
                                     <select name="property_for" class="form-control" id="propertyFor">
-                                        <option value="For Rent" >For Rent</option>
-                                        <option value="For Sale" >For Sale</option>
-                                        <option value="For Rent or Sale" >For Rent or Sale</option>
+                                        @foreach($prop->prop_for as $for)
+                                            <option value="{{ $for }}">{{ $for }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -49,12 +58,9 @@
                                 <div class="form-group">
                                     <label  for="propertyType">Property Type</label>
                                     <select name="property_type" class="form-control" id="propertyType">
-                                        <option value="Condominium" >Condominium</option>
-                                        <option value="Mini-Condominium" >Mini-Condominium</option>
-                                        <option value="Apartment" >Apartment</option>
-                                        <option value="Flat" >Flat</option>
-                                        <option value="Bungalow" >Bungalow</option>
-                                        <option value="Land" >Land</option>
+                                        @foreach($prop->prop_type as $type)
+                                            <option value="{{ $type }}">{{ $type }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -98,11 +104,13 @@
                                 <div class="form-group">
                                     <label  for="condition">Property Condition</label>
                                     <select name="condition" class="form-control" id="condition">
-                                        <option value="1" >Average</option>
-                                        <option value="2" >Decent</option>
-                                        <option value="3" selected>Good</option>
-                                        <option value="4" >Great</option>
-                                        <option value="5" >Like New</option>
+                                        @foreach($prop->property_conditions as $conds)
+                                            @if($conds === 'Good')
+                                            <option value="{{ $conds }}" selected>{{ $conds }}</option>
+                                            @else
+                                            <option value="{{ $conds }}">{{ $conds }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -143,8 +151,9 @@
                         <div class="form-group">
                             <label  for="township">Township</label>
                             <select name="township" class="form-control" id="township">
-                                <option value="1" >Bahan</option>
-                                <option value="2" >Dagon</option>
+                                @foreach($prop->township_names as $tsp)
+                                    <option value="{{ $tsp }}">{{ $tsp }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -162,6 +171,12 @@
                             <label  for="description">Description</label>
                             <textarea name="description" class="form-control" id="description" rows="5" cols="50"></textarea>
                         </div>
+
+                        <div class="form-group">
+                            <label for="filename">Upload Image:</label>
+                            <input type="file" name="property_images[]" id="filename" multiple>
+                        </div>
+
 
                     </div> {{--/col-sm-6--}}
 

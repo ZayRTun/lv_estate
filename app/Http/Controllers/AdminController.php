@@ -16,12 +16,54 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('admin.create');
+    	$prop = new Property();
+        return view('admin.create', compact('prop'));
     }
 
     public function store()
     {
-        Property::create(request()->all());
+    	// If there is image in the request
+        $this->validate(request(), [
+//            'first_name' => 'required|min:3',
+//            'last_name' => 'required|min:3',
+//            'contact' => 'required',
+//	        'township' => 'required',
+//	        'property_images.*' => 'image|nullable|max:2000'
+	    ]);
+
+//        dd(request()->file());
+
+	    if (request()->has('property_images')) {
+
+            $property = Property::create(request()->except('property_images'));
+
+		    foreach (request('property_images') as $img) {
+			    // Gets filename with extension
+			    $imgNameWithExt =  $img->getClientOriginalName();
+			    // Gets just filename
+			    $imgName = pathinfo($imgNameWithExt, PATHINFO_FILENAME);
+			    // Gets just extension
+			    $extension = $img->getClientOriginalExtension();
+			    // File name to store
+			    $fileNameToStore = $imgName .'_'.time().'.'.$extension;
+
+			    // Upload Image
+			    $img->storeAs('public/uploads', $fileNameToStore);
+
+			    $property->images()->create([
+			    	'property_images' => $fileNameToStore
+			    ]);
+		    }
+
+	    } else {
+	    	$fileNameToStore = 'noimage.jpg';
+
+		    $property = Property::create(request()->all());
+
+		    $property->images()->create([
+			    'property_images' => $fileNameToStore
+		    ]);
+	    }
 
         return redirect('/admin');
     }

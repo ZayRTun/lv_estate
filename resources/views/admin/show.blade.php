@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @section('content')
-
+    {{--{{ dd($property->images()->get()) }}--}}
     <div class="container main">
         <div class="row">
             <section class="col-sm-8">
@@ -9,25 +9,38 @@
                     <div class="carousel slide" id="featured">
 
                         <lo class="carousel-indicators">
-                            <li data-target="#featured" data-slide-to="0" class="active"></li>
-                            <li data-target="#featured" data-slide-to="1"></li>
-                            <li data-target="#featured" data-slide-to="2"></li>
+                            @php $active = false; $i = 0; @endphp
+                            @foreach($property->images()->get() as $image)
+                                @php $i++; @endphp
+                                @if(! $active)
+                                    @php $active = true; @endphp
+                                        <li data-target="#featured" data-slide-to="{{ $i }}" class="active"></li>
+                                @else
+                                    <li data-target="#featured" data-slide-to="1"></li>
+                                @endif
+                            @endforeach
                         </lo>
 
                         <div class="carousel-inner">
-
-                            <div class="item active">
-                                <img class="img-responsive" src="/realestate/public/uploaded/house_1a.jpg" alt="house_1a.jpg">
-                            </div>
-
-                            <div class="item">
-                                <img class="img-responsive" src="/realestate/public/uploaded/house_2b.jpg" alt="house_2b.jpg">
-                            </div>
-
-                            <div class="item">
-                                <img class="img-responsive" src="/realestate/public/uploaded/house_4.jpg" alt="house_4.jpg">
-                            </div>
-
+                            @php $active = false; @endphp
+                            @foreach($property->images()->get() as $image)
+                                @if(! $active)
+                                    @php $active = true; @endphp
+                                    <div class="item active">
+                                        <div class="thumbnail" style="background-image: url(/storage/uploads/{{ $image->property_images }})">
+                                            <img class="img-responsive center-block" src="/storage/uploads/{{ $image->property_images }}" alt="house_3b_1.jpg">
+                                        </div>
+                                        {{--<img class="img-responsive" src="/storage/uploads/{{ $image->property_images }}" alt="{{ $image->property_images }}">--}}
+                                    </div>
+                                @else
+                                    <div class="item">
+                                        <div class="thumbnail" style="background-image: url(/storage/uploads/{{ $image->property_images }})">
+                                            <img class="img-responsive center-block" src="/storage/uploads/{{ $image->property_images }}" alt="house_3b_1.jpg">
+                                        </div>
+                                        {{--<img class="img-responsive" src="/storage/uploads/{{ $image->property_images }}" alt="{{ $image->property_images }}">--}}
+                                    </div>
+                                @endif
+                            @endforeach
                         </div> <!--carousel-inner-->
 
                         <a class="left carousel-control" href="#featured" role="button" data-slide="prev">
